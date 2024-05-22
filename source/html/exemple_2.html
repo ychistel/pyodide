@@ -16,13 +16,10 @@
 
         document.getElementById('run-python').addEventListener('click', () => {
             const pythonScript = `
-def hello(n):
-    print('ok')
-    t = [i**2 for i in range(n)]
-    print(t)
-    return t
+def hello():
+    return 'bonjour de Python'
 
-result = hello(10)
+result = hello()
 `;
 
             // Envoyer le script Python au WebWorker
