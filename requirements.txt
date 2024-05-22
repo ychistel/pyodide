@@ -1,0 +1,24 @@
+# Module pour construire l'auto-documentation
+sphinx
+
+# Thèmes pour le rendu html
+#sphinx-rtd-theme
+sphinx-book-theme
+
+# Module pour améliorer l'interface html
+sphinx-design
+
+# Module pour auto-construire la doc
+sphinx-autobuild
+
+# Module pour créer des notebook jupyter
+jupyter
+
+# Module pour insérer des notebook jupyter
+nbsphinx
+
+# Module pour insérer un bouton de copier coller
+sphinx-copybutton
+
+# Module pour convertir des fichiers d'un format à un autre
+pandoc
