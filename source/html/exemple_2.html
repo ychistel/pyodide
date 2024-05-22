@@ -12,7 +12,7 @@
 
     <script>
         // Initialiser le WebWorker
-        const worker = new Worker('pyodide-worker.js');
+        const worker = new Worker('../_static/pyodide-worker.js');
 
         document.getElementById('run-python').addEventListener('click', () => {
             const pythonScript = `
