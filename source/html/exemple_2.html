@@ -16,10 +16,13 @@
 
         document.getElementById('run-python').addEventListener('click', () => {
             const pythonScript = `
-def hello():
-    return "Bonjour depuis Python!"
+def hello(n):
+    s = 0
+    for i in range(n):
+        s += i
+    return s
 
-result = hello()
+result = hello(9)
 result
             `;
 
