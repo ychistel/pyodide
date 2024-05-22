@@ -48,7 +48,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/index';</script>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
-    <script src="../_static/pyodide-worker.js"></script>
+    <script src="../_static/pyodide-worker.js?v=7349bcbd"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
     <link rel="prev" title="Pyodide pour Sphinx" href="../index.html" />
@@ -320,7 +320,7 @@ document.write(`
 
     <script>
         // Initialiser le WebWorker
-        const worker = new Worker('pyodide-worker.js');
+        const worker = new Worker('../_static/pyodide-worker.js');
 
         document.getElementById('run-python').addEventListener('click', () => {
             const pythonScript = `
