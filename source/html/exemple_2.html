@@ -17,9 +17,11 @@
         document.getElementById('run-python').addEventListener('click', () => {
             const pythonScript = `
 def hello():
+print('ok')
     return 'bonjour de Python'
 
 result = hello()
+result
 `;
 
             // Envoyer le script Python au WebWorker
