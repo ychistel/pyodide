@@ -1,0 +1,79 @@
+:root{
+    --color-blue:#2b5b84;
+    --color-blue-light:#adc5d9;
+    --color-gray:#d4d4d4;
+    --color-gray-light:#eee;
+    --color-gray-dark:#4d4d4d;
+}
+
+.margin-none{margin:none}
+.margin-0{margin:0px}.margin-2{margin:2px}.margin-4{margin:4px}.margin-8{margin:8px}.margin-16{margin:16px}.margin-32{margin:32px}
+.margin-top-2{margin-top:2px}.margin-top-4{margin-top:4px}.margin-top-8{margin-top:8px}.margin-top-16{margin-top:16px}.margin-top-32{margin-top:32px}
+.margin-bottom-2{margin-bottom:2px}.margin-bottom-4{margin-bottom:4px}.margin-bottom-8{margin-bottom:8px}.margin-bottom-16{margin-bottom:16px}.margin-bottom-32{margin-bottom:32px}
+.margin-left-2{margin-left:2px}.margin-left-4{margin-left:4px}.margin-left-8{margin-left:8px}.margin-left-16{margin-left:16px}.margin-left-32{margin-left:32px}
+.margin-right-2{margin-right:2px}.margin-right-4{margin-right:4px}.margin-right-8{margin-right:8px}.margin-right-16{margin-right:16px}.margin-right-32{margin-right:32px}
+.padding-none{padding:none}
+.padding-0{padding:0px}.padding-2{padding:2px}.padding-4{padding:4px}.padding-8{padding:8px}.padding-16{padding:16px}.padding-32{padding:32px}
+.padding-top-2{padding-top:2px}.padding-top-4{padding-top:4px}.padding-top-8{padding-top:8px}.padding-top-16{padding-top:16px}.padding-top-32{padding-top:32px}
+.padding-bottom-2{padding-bottom:2px}.padding-bottom-4{padding-bottom:4px}.padding-bottom-8{padding-bottom:8px}.padding-bottom-16{padding-bottom:16px}.padding-bottom-32{padding-bottom:32px}
+.padding-left-2{padding-left:2px}.padding-left-4{padding-left:4px}.padding-left-8{padding-left:8px}.padding-left-16{padding-left:16px}.padding-left-32{padding-left:32px}
+.padding-right-2{padding-right:2px}.padding-right-4{padding-right:4px}.padding-right-8{padding-right:8px}.padding-right-16{padding-right:16px}.padding-right-32{padding-right:32px}
+.text-align-center{text-align:center}.text-align-left{text-align:left}.text-align-right{text-align:right}.text-align-justify{text-align:justify}
+.display-block{display:block}.display-inline-block{display:inline-block}.display-none{display:none}
+
+.border-radius-0{border-radius:0px}.border-radius-2{border-radius:2px}.border-radius-4{border-radius:4px}.border-radius-8{border-radius:8px}.border-radius-16{border-radius:16px}.border-radius-32{border-radius:32px}
+.border-style-solid{border-style: solid}.border-style-dotted{border-style: dotted}.border-style-dashed{border-style: dashed}
+.border-width-1{border-width:1px}.border-width-2{border-width:2px}.border-width-3{border-width:3px}.border-width-4{border-width:4px}.border-width-5{border-width:5px}
+.border-color-blue-light{border-color:var(--color-blue-light)}
+.border-color-gray{border-color:var(--color-gray)}
+
+table.table{width:auto;}
+table.table td p, table.table th p{margin:auto 1em;text-align:center;}
+table.bordure td, table.bordure th{border: solid 1px var(--color-gray)}
+
+/*Mise en forme des listes numérotées*/
+li{padding-left:8px}
+ol li::marker{font-weight:600}
+ol li ol li::marker{font-weight:600}
+
+/*correctif pour bordure lien a lorsque largeur imposée*/
+a.border-none{border:none}
+
+
+.background-blue{background:var(--color-blue)}
+p.rubric{color:var(--color-blue);border-bottom:solid 1px var(--color-blue-light)}
+
+div.docutils.container{margin:1.5625em auto;padding:0;}
+
+div.exemple p{margin:8px 16px;}
+div.exemple p.rubric{color: #4d4d4d;border-bottom:solid 1px #4d4d4d}
+/*div.exemple p.rubric:before{content:'\270E';display:contents;}*/
+
+div.definition.admonition{border-color:#2b5b84;}
+div.definition > p.admonition-title{background-color:#badafa;color:#2b5b84;}
+/*div.definition > p.admonition-title::after{color:#2b5b84;content: "\e1fe";}*/
+
+div.code.admonition{border-color:#249b22;}
+div.code > p.admonition-title{background-color:#b3f962;color:rgb(39, 54, 47)}
+/*div.code > p.admonition-title::after{color:#404140;content: "\f121";}*/
+
+div.propriete.admonition{border-color:#404140;}
+div.propriete > p.admonition-title{background-color:#d4d4d4;color:#404140;}
+/*div.propriete > p.admonition-title::after{color:#404140;content: "\f013";}*/
+
+p.title{
+    text-align: center;
+    font-size: 4em;
+    padding-bottom: 20px;
+    background-color: var(--color-blue-light);
+}
+p.title a{
+    color:#404140;
+    text-decoration: none;
+}
+
+.demo{
+    margin:0 25px;
+    padding:8px;
+    border:solid 1px #eee;
+}
