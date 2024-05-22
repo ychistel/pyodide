@@ -2,22 +2,22 @@
 
 // Vérifiez que nous sommes dans un contexte de WebWorker
 if (typeof importScripts !== 'undefined') {
-    // Charger Pyodide
+    console.log("Running in a WebWorker context");
     importScripts('https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js');
 
-    async function loadPyodideAndPackages() {
+    let pyodideReadyPromise = (async () => {
         try {
             self.pyodide = await loadPyodide();
-            console.log("Pyodide loaded");
+            console.log("Pyodide loaded successfully");
         } catch (error) {
             console.error("Error loading Pyodide:", error);
         }
-    }
-
-    loadPyodideAndPackages();
+    })();
 
     self.onmessage = async (event) => {
         const pythonScript = event.data.python;
+
+        await pyodideReadyPromise;  // Assurez-vous que Pyodide est chargé avant de traiter les messages
 
         try {
             await self.pyodide.loadPackagesFromImports(pythonScript);
@@ -28,7 +28,6 @@ if (typeof importScripts !== 'undefined') {
                 result = `Error in Python script: ${error.message}`;
             }
 
-            // Renvoyer le résultat au thread principal
             self.postMessage({ result });
         } catch (error) {
             console.error("Error during Pyodide execution:", error);
