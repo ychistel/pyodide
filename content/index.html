@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Pyodide &#8212; &lt;a href=&#34;https://ychistel.github.io/cours/content/1nsi.html&#34;&gt;NSI&lt;/a&gt;</title>
+    <title>Welcome to My Project’s documentation! &#8212; &lt;a href=&#34;https://ychistel.github.io/cours/content/1nsi.html&#34;&gt;NSI&lt;/a&gt;</title>
   
   
   
@@ -30,8 +30,9 @@
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=5d77598a" />
+    <link rel="stylesheet" type="text/css" href="../_static/codemirror/codemirror.min.css?v=c9f3a08d" />
+    <link rel="stylesheet" type="text/css" href="../_static/pyscript/pyscript.css?v=9dac337a" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
   <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
@@ -41,12 +42,12 @@
     <script src="../_static/documentation_options.js?v=72dce1d2"></script>
     <script src="../_static/doctools.js?v=9a2dae69"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script src="../_static/translations.js?v=bf059b8c"></script>
-    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/index';</script>
+    <script src="../_static/codemirror/codemirror.min.js?v=c742e802"></script>
+    <script src="../_static/codemirror/python.min.js?v=6802b71d"></script>
+    <script src="../_static/pyscript/pyscript.js?v=b517562d"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
     <link rel="prev" title="Pyodide pour Sphinx" href="../index.html" />
@@ -151,7 +152,7 @@
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Pyodide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Welcome to My Project’s documentation!</a></li>
 </ul>
 
     </div>
@@ -288,7 +289,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Pyodide</h1>
+    <h1>Welcome to My Project’s documentation!</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -302,91 +303,158 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="pyodide">
-<h1>Pyodide<a class="headerlink" href="#pyodide" title="Lien vers cette rubrique">#</a></h1>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Code Editor with PyScript</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.css">
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        #editor {
-            height: 300px;
-            border: 1px solid #ccc;
-        }
-        #output {
-            margin-top: 20px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.4);
-            padding-top: 60px;
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        py-terminal {
-            display: none;
-        }
-    </style>
-</head>
-<body>
-    <h1>Python Code Editor with PyScript</h1>
-    <button id="showEditorButton">Afficher l'éditeur</button>
+  <section id="welcome-to-my-project-s-documentation">
+<span id="index"></span><h1>Welcome to My Project’s documentation!<a class="headerlink" href="#welcome-to-my-project-s-documentation" title="Lien vers cette rubrique">#</a></h1>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    #editor {
+        height: 300px;
+        border: 1px solid #ccc;
+    }
+    #output {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+    }
+    .modalpython {
+        display: none;
+        position: fixed;
+        z-index: 5000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+        padding-left:30px;
+    }
+    .modalpython-content {
+        background-color: #fefefe;
+        margin: 2% auto;
+        padding: 4px;
+        border: 1px solid #888;
+        width: 96%%;
+    }
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+<h1>Python Code Editor with PyScript</h1>
+<button id="showEditorButton">Afficher l'éditeur</button>
 
-    <div id="editorModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <textarea id="editor"></textarea>
-            <button id="runButton">Run</button>
-            <button id="clearButton">Effacer</button>
-            <button id="downloadButton">Télécharger</button>
-            <input type="file" id="uploadInput" style="display:none;">
-            <button id="uploadButton">Téléverser</button>
-            <div id="output"></div>
-        </div>
-    </div>
+<div id="editorModal" class="modalpython-content">
+    <span class="close">&times;</span>
+    <textarea id="editor"></textarea>
+    <button id="runButton">Run</button>
+    <button id="clearButton">Effacer</button>
+    <button id="downloadButton">Télécharger</button>
+    <input type="file" id="uploadInput" style="display:none;">
+    <button id="uploadButton">Téléverser</button>
+    <div id="output"></div>
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/mode/python/python.min.js" defer></script>
-    <script src="https://pyscript.net/latest/pyscript.js" defer></script>
-    <script src="../_static/script.js" defer></script>
-</body>
-</html>
-</section>
+<script>
+    function initializeCodeMirror() {
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'python',
+            lineNumbers: true,
+            theme: "default"
+        });
+
+        const modal = document.getElementById('editorModal');
+        const showEditorButton = document.getElementById('showEditorButton');
+        const closeButton = document.getElementsByClassName('close')[0];
+        modal.style.display = 'none';
+
+        showEditorButton.onclick = function() {
+            modal.style.display = 'block';
+        }
+
+        closeButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('runButton').addEventListener('click', () => {
+            const code = editor.getValue();
+            const existingScript = document.getElementById('pyscript-exec');
+            if (existingScript) {
+                existingScript.remove();
+            }
+            const pyscript = document.createElement('py-script');
+            pyscript.setAttribute('output', 'output');
+            pyscript.id = 'pyscript-exec';
+            pyscript.innerHTML = code;
+            document.body.appendChild(pyscript);
+        });
+
+        document.getElementById('clearButton').addEventListener('click', () => {
+            editor.setValue('');
+            document.getElementById('output').innerHTML = '';
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const code = editor.getValue();
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'code.py';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('uploadButton').addEventListener('click', () => {
+            document.getElementById('uploadInput').click();
+        });
+
+        document.getElementById('uploadInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    editor.setValue(content);
+                };
+                reader.readAsText(file);
+            }
+        });
+    }
+
+    // Vérifiez la disponibilité de CodeMirror et initialisez l'éditeur
+    document.addEventListener('DOMContentLoaded', function () {
+        function checkCodeMirror() {
+            if (typeof CodeMirror !== 'undefined') {
+                initializeCodeMirror();
+            } else {
+                setTimeout(checkCodeMirror, 50);
+            }
+        }
+        checkCodeMirror();
+    });
+
+</script></section>
 
 
                 </article>
