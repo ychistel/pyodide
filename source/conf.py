@@ -61,7 +61,4 @@ html_title = '<a href="https://ychistel.github.io/cours/content/1nsi.html">NSI</
 html_static_path = ['_static']
 
 html_css_files = ['custom.css']
-html_js_files = [
-    'https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js',
-    'pyodide-worker.js'
-]
+
