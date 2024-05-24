@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Code Editor with PyScript</title>
+    <title>Python Code Editor</title>
+    <!-- Inclure les styles CSS nécessaires -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.css">
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <!-- Inclure le script de PyScript -->
+    <script src="https://pyscript.net/latest/pyscript.js"></script>
     <style>
+        /* Ajouter les styles CSS personnalisés si nécessaire */
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
         #editor {
-            height: 200px;
+            height: 300px;
             border: 1px solid #ccc;
         }
         #output {
@@ -21,79 +24,50 @@
             border: 1px solid #ccc;
             background-color: #f9f9f9;
         }
-        py-terminal{
-            display:none;
-        }
     </style>
 </head>
 <body>
-    <h1>Python Code Editor with PyScript</h1>
-    <textarea id="editor"></textarea>
-    <button id="runButton">Run</button>
-    <button id="clearButton">Effacer</button>
-    <button id="downloadButton">Télécharger</button>
-    <input type="file" id="uploadInput" style="display:none;">
-    <button id="uploadButton">Téléverser</button>
+    <h1>Python Code Editor</h1>
+    
+    <!-- Créer un textarea pour le code Python -->
+    <textarea id="editor"># Ecrivez votre code Python ici
+print("Hello, World!")
+    </textarea>
+    
+    <!-- Ajouter un bouton "Run" pour exécuter le code -->
+    <button onclick="runCode()">Run</button>
+    
+    <!-- Ajouter un div pour afficher le résultat -->
     <div id="output"></div>
-
+    
+    <!-- Inclure le script de CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.js"></script>
+    <!-- Inclure le mode Python de CodeMirror -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/mode/python/python.min.js"></script>
-    <script src="https://pyscript.net/latest/pyscript.js"></script>
+    
     <script>
-        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-            mode: 'python',
+        // Initialiser l'éditeur de texte avec CodeMirror
+        var editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
             lineNumbers: true,
+            mode: "python"
         });
-
-        document.getElementById('runButton').addEventListener('click', () => {
-            const code = editor.getValue();
-            // Supprime tout script PyScript existant
-            const existingScript = document.getElementById('pyscript-exec');
-            if (existingScript) {
-                existingScript.remove();
+        
+        // Fonction pour exécuter le code Python
+        function runCode() {
+            var code = editor.getValue(); // Obtenir le code depuis l'éditeur
+            var output = document.getElementById("output");
+            output.innerHTML = ""; // Effacer le contenu précédent
+            
+            try {
+                // Exécuter le code Python avec PyScript
+                var result = pyScript.run(code);
+                // Afficher le résultat dans le div de sortie
+                output.textContent = result;
+            } catch (error) {
+                // Gérer les erreurs
+                output.textContent = "Erreur: " + error;
             }
-
-            // Crée un nouveau script PyScript pour exécuter le code
-            const pyscript = document.createElement('py-script');
-            pyscript.setAttribute('output', 'output');
-            pyscript.id = 'pyscript-exec';
-            pyscript.innerHTML = code;
-            document.body.appendChild(pyscript);
-        });
-
-        document.getElementById('clearButton').addEventListener('click', () => {
-            editor.setValue('');
-            document.getElementById('output').innerHTML = ''; // Efface également la sortie
-        });
-
-        document.getElementById('downloadButton').addEventListener('click', () => {
-            const code = editor.getValue();
-            const blob = new Blob([code], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'code.py';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        });
-
-        document.getElementById('uploadButton').addEventListener('click', () => {
-            document.getElementById('uploadInput').click();
-        });
-
-        document.getElementById('uploadInput').addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const content = e.target.result;
-                    editor.setValue(content);
-                };
-                reader.readAsText(file);
-            }
-        });
+        }
     </script>
 </body>
 </html>

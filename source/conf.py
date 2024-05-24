@@ -14,6 +14,9 @@
 #import sys
 #sys.path.insert(0, os.path.abspath('./_extensions'))
 
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
@@ -28,7 +31,7 @@ copyright = year + ',' + author
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['nbsphinx','sphinx_copybutton']
+extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -60,5 +63,15 @@ html_title = '<a href="https://ychistel.github.io/cours/content/1nsi.html">NSI</
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
-html_css_files = ['custom.css']
+html_css_files = [
+    'custom.css',
+    'codemirror/codemirror.min.css',
+    'pyscript/pyscript.css',
+]
+
+html_js_files = [
+    'codemirror/codemirror.min.js',
+    'codemirror/python.min.js',
+    'pyscript/pyscript.js',
+]
 

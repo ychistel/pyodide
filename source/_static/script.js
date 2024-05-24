@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+function initializeCodeMirror() {
     const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
         mode: 'python',
         lineNumbers: true,
@@ -68,4 +68,16 @@ document.addEventListener('DOMContentLoaded', function () {
             reader.readAsText(file);
         }
     });
+}
+
+// Vérifiez la disponibilité de CodeMirror et initialisez l'éditeur
+document.addEventListener('DOMContentLoaded', function () {
+    function checkCodeMirror() {
+        if (typeof CodeMirror !== 'undefined') {
+            initializeCodeMirror();
+        } else {
+            setTimeout(checkCodeMirror, 50);
+        }
+    }
+    checkCodeMirror();
 });
