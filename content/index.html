@@ -48,7 +48,7 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'content/index';</script>
     <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
-    <script src="../_static/pyodide-worker.js?v=3eb383b4"></script>
+    <script src="../_static/pyodide-worker.js?v=89b8be82"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Recherche" href="../search.html" />
     <link rel="prev" title="Pyodide pour Sphinx" href="../index.html" />
@@ -307,45 +307,162 @@ document.write(`
   <section id="pyodide">
 <h1>Pyodide<a class="headerlink" href="#pyodide" title="Lien vers cette rubrique">#</a></h1>
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pyodide avec WebWorker</title>
+    <title>Python Code Editor with PyScript</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.css">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #editor {
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        /* Styles pour la fenêtre modale */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Masquer le terminal PyScript par défaut */
+        py-terminal {
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Exécution de Python avec Pyodide dans un WebWorker</h1>
-    <button id="run-python">Exécuter le script Python</button>
-    <pre id="output"></pre>
+    <h1>Python Code Editor with PyScript</h1>
+    <button id="showEditorButton">Afficher l'éditeur</button>
 
+    <!-- Fenêtre modale -->
+    <div id="editorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <textarea id="editor"></textarea>
+            <button id="runButton">Run</button>
+            <button id="clearButton">Effacer</button>
+            <button id="downloadButton">Télécharger</button>
+            <input type="file" id="uploadInput" style="display:none;">
+            <button id="uploadButton">Téléverser</button>
+            <div id="output"></div> <!-- Déplacé ici pour être dans la fenêtre modale -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/mode/python/python.min.js"></script>
+    <script src="https://pyscript.net/latest/pyscript.js"></script>
     <script>
-        // Initialiser le WebWorker
-        const worker = new Worker('../_static/pyodide-worker.js');
-
-        document.getElementById('run-python').addEventListener('click', () => {
-            const pythonScript = `
-def hello(n):
-    s = 0
-    for i in range(n):
-        s += i
-    return s
-
-result = hello(9)
-result
-            `;
-
-            // Envoyer le script Python au WebWorker
-            worker.postMessage({ python: pythonScript });
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'python',
+            lineNumbers: true,
         });
 
-        worker.onmessage = (event) => {
-            // Afficher le résultat renvoyé par le WebWorker
-            document.getElementById('output').textContent = event.data.result;
-        };
+        // Gérer l'affichage de la fenêtre modale
+        const modal = document.getElementById('editorModal');
+        const showEditorButton = document.getElementById('showEditorButton');
+        const closeButton = document.getElementsByClassName('close')[0];
 
-        worker.onerror = (error) => {
-            console.error("Error in worker:", error.message);
-        };
+        showEditorButton.onclick = function() {
+            modal.style.display = 'block';
+        }
+
+        closeButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('runButton').addEventListener('click', () => {
+            const code = editor.getValue();
+            // Supprime tout script PyScript existant
+            const existingScript = document.getElementById('pyscript-exec');
+            if (existingScript) {
+                existingScript.remove();
+            }
+
+            // Crée un nouveau script PyScript pour exécuter le code
+            const pyscript = document.createElement('py-script');
+            pyscript.setAttribute('output', 'output'); // Rediriger la sortie vers le div 'output'
+            pyscript.id = 'pyscript-exec';
+            pyscript.innerHTML = code;
+            document.body.appendChild(pyscript);
+        });
+
+        document.getElementById('clearButton').addEventListener('click', () => {
+            editor.setValue('');
+            document.getElementById('output').innerHTML = ''; // Efface également la sortie
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const code = editor.getValue();
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'code.py';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('uploadButton').addEventListener('click', () => {
+            document.getElementById('uploadInput').click();
+        });
+
+        document.getElementById('uploadInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    editor.setValue(content);
+                };
+                reader.readAsText(file);
+            }
+        });
     </script>
 </body>
 </html>
