@@ -3,4 +3,4 @@ Pyodide
 
 
 .. raw:: html
-    :file: ../html/exemple_2.html
+    :file: ../html/exemple_6.html

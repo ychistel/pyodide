@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Code Editor with PyScript</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.css">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #editor {
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+        /* Styles pour la fenêtre modale */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Masquer le terminal PyScript par défaut */
+        py-terminal {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Python Code Editor with PyScript</h1>
+    <button id="showEditorButton">Afficher l'éditeur</button>
+
+    <!-- Fenêtre modale -->
+    <div id="editorModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <textarea id="editor"></textarea>
+            <button id="runButton">Run</button>
+            <button id="clearButton">Effacer</button>
+            <button id="downloadButton">Télécharger</button>
+            <input type="file" id="uploadInput" style="display:none;">
+            <button id="uploadButton">Téléverser</button>
+            <div id="output"></div> <!-- Déplacé ici pour être dans la fenêtre modale -->
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/mode/python/python.min.js"></script>
+    <script src="https://pyscript.net/latest/pyscript.js"></script>
+    <script>
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'python',
+            lineNumbers: true,
+        });
+
+        // Gérer l'affichage de la fenêtre modale
+        const modal = document.getElementById('editorModal');
+        const showEditorButton = document.getElementById('showEditorButton');
+        const closeButton = document.getElementsByClassName('close')[0];
+
+        showEditorButton.onclick = function() {
+            modal.style.display = 'block';
+        }
+
+        closeButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        document.getElementById('runButton').addEventListener('click', () => {
+            const code = editor.getValue();
+            // Supprime tout script PyScript existant
+            const existingScript = document.getElementById('pyscript-exec');
+            if (existingScript) {
+                existingScript.remove();
+            }
+
+            // Crée un nouveau script PyScript pour exécuter le code
+            const pyscript = document.createElement('py-script');
+            pyscript.setAttribute('output', 'output'); // Rediriger la sortie vers le div 'output'
+            pyscript.id = 'pyscript-exec';
+            pyscript.innerHTML = code;
+            document.body.appendChild(pyscript);
+        });
+
+        document.getElementById('clearButton').addEventListener('click', () => {
+            editor.setValue('');
+            document.getElementById('output').innerHTML = ''; // Efface également la sortie
+        });
+
+        document.getElementById('downloadButton').addEventListener('click', () => {
+            const code = editor.getValue();
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'code.py';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('uploadButton').addEventListener('click', () => {
+            document.getElementById('uploadInput').click();
+        });
+
+        document.getElementById('uploadInput').addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const content = e.target.result;
+                    editor.setValue(content);
+                };
+                reader.readAsText(file);
+            }
+        });
+    </script>
+</body>
+</html>

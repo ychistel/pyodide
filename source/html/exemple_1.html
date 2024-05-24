@@ -1,32 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Éditeur Python avec Pyodide et Web Worker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
 <body>
-  <p>You can execute any Python code. Just enter something in the box below and click the button.</p>
-  <input id='code' value='sum([1, 2, 3, 4, 5])'>
-  <button onclick='evaluatePython()'>Run</button>
-  <br>
-  <br>
-  <div>
-    Output:
-  </div>
-  <textarea id='output' style='width: 100%;' rows='6' disabled></textarea>
+    <h1>Éditeur Python avec Pyodide et Web Worker</h1>
+    <textarea id="code-editor">print("Bonjour depuis Pyodide!")</textarea>
+    <button id="run-button">Exécuter le code</button>
+    <div id="output"></div>
 
-  <script>
-    const output = document.getElementById("output");
-    const code = document.getElementById("code");
+    <script>
+        // Initialiser le Web Worker
+        const worker = new Worker('../_static/pyodide-worker.js');
 
-    function addToOutput(s) {
-      output.value += '>>>' + code.value + '\n' + s + '\n';
-    }
+        // Écouter les messages du worker
+        worker.onmessage = function(event) {
+            const outputDiv = document.getElementById('output');
+            const { result, error } = event.data;
+            console.log(event);
+            if (result) {
+                outputDiv.innerHTML = result;
+            } else if (error) {
+                outputDiv.textContent = `Erreur dans le script Python: ${error}`;
+            }
+        };
 
-    output.value = 'Initializing...\n';
-    // init pyodide
-    languagePluginLoader.then(() => { output.value += 'Ready!\n'; });
-
-    function evaluatePython() {
-      pyodide.runPythonAsync(code.value)
-        .then(output => addToOutput(output))
-        .catch((err) => { addToOutput(err) });
-    }
-  </script>
+        // Ajouter un écouteur d'événement au bouton
+        document.getElementById('run-button').addEventListener('click', () => {
+            const code = document.getElementById('code-editor').value;
+            worker.postMessage({ code });
+        });
+    </script>
 </body>
-
 </html>
