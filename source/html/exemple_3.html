@@ -1,32 +1,47 @@
 <!DOCTYPE html>
-<html>
-  <head>
-      <meta charset="utf-8" />
-      <meta name="viewport" content="width=device-width,initial-scale=1" />
-      <title>PyScript</title>
-      <link rel="stylesheet" href="https://pyscript.net/releases/2024.5.2/core.css">
-      <script type="module" src="https://pyscript.net/releases/2024.5.2/core.js"></script>
-  </head>
-  <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Div with Effect</title>
+    <style>
+        .hidden {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+        }
 
-    <h1>Script Python dans une page html</h1>
-    <p>Voici un script en python exécuté</p>
-    <input type="text" id="a" placeholder="saisir le nombre" />
-    <input type="text" id="b" placeholder="saisir le nombre" />
-    <button py-click="afficher">Valider</button>
-    <div id="output"></div>
-    <script type="py" src="./main.py" config="./pyscript.json"></script>
-    <h2>Editeur python</h2>
-    <script type="py-editor">
-        import sys
-        print(sys.version)
-      </script>
-      <script type="py-editor">
-        import sys
-        print(sys.version)
-        a = 42
-        print(a)
-      </script>
-      
-  </body>
+        .visible {
+            max-height: 500px; /* Or any desired height */
+            opacity: 1;
+            transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+        }
+
+        #myDiv {
+            background-color: #f0f0f0;
+            padding: 20px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <button id="toggleButton">Toggle Div</button>
+    <div id="myDiv" class="hidden">
+        <p>This is a content inside the div.</p>
+    </div>
+
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            var myDiv = document.getElementById('myDiv');
+            if (myDiv.classList.contains('hidden')) {
+                myDiv.classList.remove('hidden');
+                myDiv.classList.add('visible');
+            } else {
+                myDiv.classList.remove('visible');
+                myDiv.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
 </html>

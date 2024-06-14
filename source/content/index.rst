@@ -53,7 +53,7 @@ Welcome to My Project's documentation!
             cursor: pointer;
         }
     </style>
-    <h1>Python Code Editor with PyScript</h1>
+    <h2>Python Code Editor with PyScript</h2>
     <button id="showEditorButton">Afficher l'éditeur</button>
 
     <div id="editorModal" class="modalpython-content">
